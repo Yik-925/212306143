@@ -1,9 +1,10 @@
 package com.stu212306143.helloserver.common;
 
 public class Result<T> {
-    private Integer code;  // 状态码：200=成功，500=失败
-    private String msg;   // 提示信息
-    private T data;        // 泛型数据
+    // 统一响应的三个核心属性
+    private Integer code;
+    private String msg;
+    private T data;
 
     // 无参构造
     public Result() {}
@@ -15,32 +16,34 @@ public class Result<T> {
         this.data = data;
     }
 
-    // 成功静态方法（无数据）
-    public static <T> Result<T> success() {
-        return new Result<>(200, "操作成功", null);
-    }
-
-    // 成功静态方法（带数据）
+    // 静态工厂方法：成功回调（带数据）
     public static <T> Result<T> success(T data) {
-        return new Result<>(200, "操作成功", data);
+        Result<T> result = new Result<>();
+        result.code = ResultCode.SUCCESS.getCode();
+        result.msg = ResultCode.SUCCESS.getMsg();
+        result.data = data;
+        return result;
     }
 
-    // 成功静态方法（自定义提示+数据）
-    public static <T> Result<T> success(String msg, T data) {
-        return new Result<>(200, msg, data);
+    // 静态工厂方法：失败回调（传入状态码枚举）
+    public static <T> Result<T> error(ResultCode resultCode) {
+        Result<T> result = new Result<>();
+        result.code = resultCode.getCode();
+        result.msg = resultCode.getMsg();
+        result.data = null;
+        return result;
     }
 
-    // 失败静态方法（默认状态码）
-    public static <T> Result<T> error(String msg) {
-        return new Result<>(500, msg, null);
-    }
-
-    // 失败静态方法（自定义状态码）
+    // 静态工厂方法：失败回调（自定义状态码+提示）
     public static <T> Result<T> error(Integer code, String msg) {
-        return new Result<>(code, msg, null);
+        Result<T> result = new Result<>();
+        result.code = code;
+        result.msg = msg;
+        result.data = null;
+        return result;
     }
 
-    // Getter & Setter
+    // Getter & Setter 必须生成，否则JSON序列化会失效
     public Integer getCode() {
         return code;
     }
