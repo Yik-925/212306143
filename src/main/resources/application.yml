@@ -1,0 +1,19 @@
+spring:
+  # 数据库连接核心配置
+  datasource:
+    # 数据库地址，lab_db改成你自己的数据库名
+    url: jdbc:mysql://localhost:3306/lab_db?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+
+    username: root
+    # 你的MySQL密码
+    password: xyk20040925
+    # MySQL驱动类（8.0+版本用这个，5.x版本改成com.mysql.jdbc.Driver）
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+# MyBatis-Plus配置
+mybatis-plus:
+  configuration:
+    # 开启下划线转驼峰
+    map-underscore-to-camel-case: true
+    # 打印SQL日志，方便调试
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
