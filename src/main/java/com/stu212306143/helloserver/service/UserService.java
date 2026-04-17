@@ -8,4 +8,8 @@ public interface UserService {
     Result<String> register(UserDTO userDTO);
     // 登录接口
     Result<String> login(UserDTO userDTO);
+
+    Result<String> getUserById(Long id);
+
+    Result<String> deleteUserById(Long id);
 }
