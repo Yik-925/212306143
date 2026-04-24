@@ -1,6 +1,7 @@
 package com.stu212306143.helloserver.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.stu212306143.helloserver.common.Result;
 import com.stu212306143.helloserver.common.ResultCode;
 import com.stu212306143.helloserver.dto.UserDTO;
@@ -79,5 +80,14 @@ public class UserServiceImpl implements UserService {
         }
         userMapper.deleteById(id);
         return Result.success("删除成功，已移除 ID 为 " + id + " 的用户");
+    }
+    @Override
+    public Result<Object> getUserPage(Integer pageNum, Integer pageSize) {
+        // 1. 创建分页对象：参数1=当前页码，参数2=每页显示条数
+        Page<User> pageParam = new Page<>(pageNum, pageSize);
+        // 2. 执行分页查询，null代表无额外查询条件
+        Page<User> resultPage = userMapper.selectPage(pageParam, null);
+        // 3. 返回结果（包含数据列表、总条数、总页数等元数据）
+        return Result.success(resultPage);
     }
 }

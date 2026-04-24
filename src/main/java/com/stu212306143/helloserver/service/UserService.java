@@ -12,4 +12,6 @@ public interface UserService {
     Result<String> getUserById(Long id);
 
     Result<String> deleteUserById(Long id);
+
+    Result<Object> getUserPage(Integer pageNum, Integer pageSize);
 }

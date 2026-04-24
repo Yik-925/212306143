@@ -36,4 +36,11 @@ public class UserController {
     public Result<String> deleteUser(@PathVariable("id") Long id) {
         return userService.deleteUserById(id);
     }
+
+    @GetMapping("/page")
+    public Result<Object> getUserPage(
+            @RequestParam(defaultValue = "1") Integer pageNum,
+            @RequestParam(defaultValue = "5") Integer pageSize) {
+        return userService.getUserPage(pageNum, pageSize);
+    }
 }
